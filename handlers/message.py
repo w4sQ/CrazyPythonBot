@@ -5,7 +5,7 @@ import random
 from aiogram import Dispatcher
 from aiogram.types import Message
 
-from helper import is_private, is_group
+from helper import is_private, is_group # type: ignore
 from keyboards import main_menu
 
 logger = logging.getLogger(__name__)
@@ -23,10 +23,6 @@ async def spam(message: Message):
         pass
 
 
-async def test(message: Message):
-    await message.reply('test')
-
-
 async def cum(message: Message):
     text = "Размер вашей cum-пушки: {size} см."
     msg = await message.reply(text.format(size=random.randint(3, 44)), protect_content=True)
@@ -38,7 +34,6 @@ async def cum(message: Message):
 
 def register(dp: Dispatcher):
     dp.register_message_handler(start, commands='start')
-    dp.register_message_handler(test, is_private(), commands='test')
     dp.register_message_handler(spam, is_group(), commands='spam')
     dp.register_message_handler(cum, commands='cum')
 
