@@ -18,7 +18,7 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: systemctl stop ${{ secrets.SERVICE_NAME }}
+        script: sudo systemctl stop ${{ secrets.SERVICE_NAME }}
         port: ${{ secrets.SSH_PORT }}
     - name: Deploy to server
       uses: easingthemes/ssh-deploy@v3.0.1
@@ -35,5 +35,5 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: systemctl start ${{ secrets.SERVICE_NAME }}
+        script: sudo systemctl start ${{ secrets.SERVICE_NAME }}
         port: ${{ secrets.SSH_PORT }}
