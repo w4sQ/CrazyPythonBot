@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Stop service on server
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: systemctl stop ${{ secrets.SERVICE_NAME }}
+        port: ${{ secrets.SSH_PORT }}
+    - name: Deploy to server
+      uses: easingthemes/ssh-deploy@v3.0.1
+      with:
+       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+       REMOTE_USER: ${{ secrets.REMOTE_USER }}
+       SOURCE: ./
+       TARGET: ${{ secrets.TARGET_DIRECTORY }}
+       REMOTE_PORT: ${{ secrets.SSH_PORT }} -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa
+    - name: Start service on server
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: systemctl start ${{ secrets.SERVICE_NAME }}
+        port: ${{ secrets.SSH_PORT }}
