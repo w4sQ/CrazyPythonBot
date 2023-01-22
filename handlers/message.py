@@ -30,9 +30,10 @@ async def test(message: Message):
 async def cum(message: Message):
     text = "Размер вашей cum-пушки: {size} см."
     msg = await message.reply(text.format(size=random.randint(3, 44)), protect_content=True)
-    await message.reply_sticker('CAACAgIAAxkBAAEHYVljzGF0ux80GskQWlNb6UsLzex-QAACxw8AAj-VwUqoJZJZftReKS0E')
+    sticker = await message.reply_sticker('CAACAgIAAxkBAAEHYVljzGF0ux80GskQWlNb6UsLzex-QAACxw8AAj-VwUqoJZJZftReKS0E')
     await asyncio.sleep(2)
     await msg.edit_text(text.format(size=random.randint(1, 4)))
+    await sticker.delete()
 
 
 def register(dp: Dispatcher):
