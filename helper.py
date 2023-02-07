@@ -43,8 +43,12 @@ class Server:
         return 'Сервер выключен! -_-'
 
     def players_online(self) -> list | None:
-        player_list = [player['name'] for player in self.__connection_to_server().raw['players']['sample']]
-        return player_list
+        try:
+            player_list = [player['name'] for player in self.__connection_to_server().raw['players']['sample']]
+            return player_list
+        except Exception as ex:
+            logger.error(ex)
+            return None
 
     # 'players'
     def __connection_to_server(self) -> mcstatus.pinger.PingResponse | None:
