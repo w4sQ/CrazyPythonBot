@@ -17,14 +17,14 @@ async def start(message: Message):
 async def check(message: Message):
     server_name = message.get_args()
     text = 'Такого сервера нет в списке, доступные сервера:\n' \
-           f'`{"`, `".join(servers.keys())}`'
+           f'{", ".join(servers.keys())}'
     if not server_name:
         text = 'Укажите сервер:\n' \
                '`/check <название>`'
     if server_name in servers:
         server = Server(servers[server_name])
         text = server.check()
-    await message.reply(text, parse_mode='Markdown')
+    await message.reply(text)
 
 
 def register(dp: Dispatcher):

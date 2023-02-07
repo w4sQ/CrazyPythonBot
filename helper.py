@@ -40,14 +40,13 @@ class Server:
             msg = f'Онлайн: {len(players)}\n' \
                   f'Игроки: {", ".join(players)}'
             return msg
-        return 'Сервер выключен! -_-'
+        return 'Сервер выключен! 🫠'
 
     def players_online(self) -> list | None:
         try:
             player_list = [player['name'] for player in self.__connection_to_server().raw['players']['sample']]
             return player_list
-        except Exception as ex:
-            logger.error(ex)
+        except KeyError:
             return None
 
     # 'players'
