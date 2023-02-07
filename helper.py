@@ -40,7 +40,7 @@ class Server:
             msg = f'Онлайн: {len(players)}\n' \
                   f'Игроки: {", ".join(players)}'
             return msg
-        return 'Сервер выключен!'
+        return 'Сервер выключен! -_-'
 
     def players_online(self) -> list | None:
         player_list = []
