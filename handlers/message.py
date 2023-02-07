@@ -20,7 +20,7 @@ async def check(message: Message):
            f'{", ".join(servers.keys())}'
     if not server_name:
         text = 'Укажите сервер:\n' \
-               '/check <название>'
+               '/check \<название\>'
     if server_name in servers:
         server = Server(servers[server_name])
         text = server.check()
