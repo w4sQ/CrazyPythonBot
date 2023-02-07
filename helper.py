@@ -46,7 +46,8 @@ class Server:
         try:
             player_list = [player['name'] for player in self.__connection_to_server().raw['players']['sample']]
             return player_list
-        except KeyError:
+        except Exception as ex:
+            logger.error("ОШИБКА ОШИБКА ОШИБКА рофлан")
             return None
 
     # 'players'
