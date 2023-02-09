@@ -36,24 +36,25 @@ class Server:
 
     def check(self) -> str:
         players = self.players_online()
-        if players:
-            msg = f'Онлайн: {len(players)}\n' \
-                  f'Игроки: {", ".join(players)}'
-            return msg
-        return 'Сервер выключен! 🫠'
+        if players is None:
+            return 'Сервер выключен! 🫠'
+        msg = f'Онлайн: {len(players)}\n'\
+              f'Игроки: {", ".join(players)}'
+        return msg
 
     def players_online(self) -> list | None:
-        try:
-            player_list = [player['name'] for player in self.__connection_to_server().raw['players']['sample']]
-            return player_list
-        except Exception as ex:
-            logger.error("ОШИБКА ОШИБКА ОШИБКА рофлан")
+        resp = self.__connection_to_server()
+        if not resp:
             return None
+        if resp.raw['players']['online'] == 0:
+            return []
+        player_list = [player['name'] for player in resp.raw['players']['sample']]
+        return player_list
 
-    # 'players'
+
     def __connection_to_server(self) -> mcstatus.pinger.PingResponse | None:
         try:
-            server = JavaServer.lookup(address=self.address, timeout=10)
+            server = JavaServer.lookup(address=self.address, timeout=6)
             logger.info(f'Connected to {self.address}')
             resp = server.status()
             return resp
