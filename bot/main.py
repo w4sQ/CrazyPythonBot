@@ -4,6 +4,9 @@ import config_logging  # type: ignore
 from bot import dp
 from handlers import message, callback
 from helper import is_private, is_group
+import logging
+from database import Database
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -15,4 +18,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+
+        logger.warning(traceback.format_exc())
+    finally:
+        Database().close()

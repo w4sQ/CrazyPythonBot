@@ -38,7 +38,7 @@ class Server:
         players = self.players_online()
         if players is None:
             return 'Сервер выключен! 🫠'
-        msg = f'Онлайн: {len(players)}\n'\
+        msg = f'Онлайн: {len(players)}\n' \
               f'Игроки: {", ".join(players)}'
         return msg
 
@@ -50,7 +50,6 @@ class Server:
             return []
         player_list = [player['name'] for player in resp.raw['players']['sample']]
         return player_list
-
 
     def __connection_to_server(self) -> mcstatus.pinger.PingResponse | None:
         try:

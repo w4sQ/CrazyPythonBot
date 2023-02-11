@@ -2,10 +2,10 @@ import logging
 
 from aiogram import Dispatcher
 from aiogram.types import Message
-
-from config import servers
 from helper import is_private, is_group, Server  # type: ignore
-from keyboards import main_menu
+
+from bot.config import servers
+from bot.keyboards import main_menu
 
 logger = logging.getLogger(__name__)
 

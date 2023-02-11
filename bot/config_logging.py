@@ -34,6 +34,21 @@ LOGGING_CONFIG = {
             'handlers': ['stream_handler'],
             'level': 'DEBUG',
             'propagate': False
+        },
+        'main': {
+            'handlers': ['stream_handler'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'helper': {
+            'handlers': ['stream_handler'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'database': {
+            'handlers': ['stream_handler'],
+            'level': 'DEBUG',
+            'propagate': False
         }
     }
 }
